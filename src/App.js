@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import './App.css';
+import { findMetaMaskAccount } from 'helpers/main';
 
-const getEthereumObject = () => window.ethereum;
 const App = () => {
+  const [currentAccount, setCurrentAccount] = useState('');
+
   useEffect(() => {
-    const ethereum = getEthereumObject();
-    if (!ethereum) {
-      console.log('Make sure you have metamask!');
-    } else {
-      console.log('We have the ethereum object', ethereum);
-    }
+    (async () => {
+      const account = await findMetaMaskAccount();
+      if (account !== null) {
+        setCurrentAccount(account);
+      }
+    })();
   }, []);
 
   return (
