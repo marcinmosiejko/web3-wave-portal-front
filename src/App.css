@@ -2,33 +2,40 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-top: 64px;
+  margin-top: 6.4rem;
 }
 
 .dataContainer {
+  max-width: 60rem;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 600px;
+  gap: 4rem;
 }
 
 .header {
   text-align: center;
-  font-size: 32px;
+  font-size: 4rem;
   font-weight: 600;
 }
 
 .bio {
   text-align: center;
-  color: gray;
-  margin-top: 16px;
+  color: #ccc;
+  font-size: 1.6rem;
 }
 
 .waveButton {
   cursor: pointer;
-  margin-top: 16px;
-  padding: 8px;
-  border: 0;
+  padding: 0.8rem;
+  border: none;
   border-radius: 5px;
-  
+  background-color: #48dcb0;
+
+  transition: all 0.3s;
+}
+
+.waveButton:hover {
+  background-color: #1fa27b;
 }
