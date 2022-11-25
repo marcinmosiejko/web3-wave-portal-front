@@ -50,7 +50,10 @@ const App = () => {
             My name's Marcin. I'm a junior developer that likes to tinker with
             new technologies ;)
           </p>
-          <p> Connect your Ethereum wallet and wave at me!</p>
+          <p>
+            Connect your Ethereum (Metamask) wallet and wave at me on Goerli
+            testnet!
+          </p>
         </div>
 
         <div className="totalWavesContainer">
