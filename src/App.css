@@ -39,3 +39,17 @@
 .waveButton:hover {
   background-color: #1fa27b;
 }
+
+.connectWalletButton {
+  cursor: pointer;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #aaa;
+
+  transition: all 0.3s;
+}
+
+.connectWalletButton:hover {
+  background-color: #ddd;
+}

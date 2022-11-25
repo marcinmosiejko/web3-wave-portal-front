@@ -28,3 +28,23 @@ export const findMetaMaskAccount = async () => {
     return null;
   }
 };
+
+export const connectWallet = async (handleSetCurrentAccount) => {
+  try {
+    const ethereum = getEthereumObject();
+    if (!ethereum) {
+      alert('Get MetaMask!');
+      return;
+    }
+
+    // Requests Metamask to give access to the user's wallet
+    const accounts = await ethereum.request({
+      method: 'eth_requestAccounts',
+    });
+
+    console.log('Connected', accounts[0]);
+    handleSetCurrentAccount(accounts[0]);
+  } catch (error) {
+    console.error(error);
+  }
+};

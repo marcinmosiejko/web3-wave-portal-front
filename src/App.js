@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import './App.css';
-import { findMetaMaskAccount } from 'helpers/main';
+import { findMetaMaskAccount, connectWallet } from 'helpers/main';
 
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState('');
+
+  const handleSetCurrentAccount = (account) => {
+    setCurrentAccount(account);
+  };
 
   useEffect(() => {
     (async () => {
@@ -28,9 +32,18 @@ const App = () => {
           <p> Connect your Ethereum wallet and wave at me!</p>
         </div>
 
-        <button className="waveButton" onClick={null}>
-          Wave at Me
-        </button>
+        {currentAccount ? (
+          <button className="waveButton" onClick={null}>
+            Wave at Me
+          </button>
+        ) : (
+          <button
+            className="connectWalletButton"
+            onClick={() => connectWallet(handleSetCurrentAccount)}
+          >
+            Connect Wallet
+          </button>
+        )}
       </div>
     </div>
   );
