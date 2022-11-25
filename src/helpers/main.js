@@ -68,7 +68,7 @@ export const readWaveCount = async (handleSetWaveCount) => {
       );
 
       // Read from contract
-      let count = await wavePortalContract.getTotalWaves();
+      const count = await wavePortalContract.getTotalWaves();
       handleSetWaveCount(count.toNumber());
     }
   } catch (err) {}
