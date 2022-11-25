@@ -33,12 +33,12 @@ const App = () => {
         </div>
 
         {currentAccount ? (
-          <button className="waveButton" onClick={null}>
+          <button className={['button', 'waveButton'].join(' ')} onClick={null}>
             Wave at Me
           </button>
         ) : (
           <button
-            className="connectWalletButton"
+            className={['button', 'connectWalletButton'].join(' ')}
             onClick={() => connectWallet(handleSetCurrentAccount)}
           >
             Connect Wallet

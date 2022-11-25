@@ -26,11 +26,14 @@
   font-size: 1.6rem;
 }
 
-.waveButton {
+.button {
   cursor: pointer;
   padding: 0.8rem;
   border: none;
   border-radius: 5px;
+}
+
+.waveButton {
   background-color: #48dcb0;
 
   transition: all 0.3s;
@@ -41,10 +44,6 @@
 }
 
 .connectWalletButton {
-  cursor: pointer;
-  padding: 0.8rem;
-  border: none;
-  border-radius: 5px;
   background-color: #aaa;
 
   transition: all 0.3s;
