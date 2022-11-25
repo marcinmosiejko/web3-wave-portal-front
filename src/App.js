@@ -10,7 +10,7 @@ import { SpinnerCircular } from 'spinners-react';
 
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState('');
-  const [waveCount, setWaveCount] = useState('');
+  const [waveCount, setWaveCount] = useState(null);
   const [txn, setTxn] = useState('');
   const [isMining, setIsMining] = useState(false);
 
@@ -59,7 +59,7 @@ const App = () => {
         </div>
 
         <div className="totalWavesContainer">
-          {waveCount ? (
+          {waveCount !== null ? (
             <>
               <span className="description">Total waves:</span>
               {isMining ? (
