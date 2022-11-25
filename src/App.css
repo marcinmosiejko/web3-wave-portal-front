@@ -53,7 +53,7 @@
   background-color: #ddd;
 }
 
-.totalWavesContainer {
+.waveCountContainer {
   height: 10rem;
   text-align: center;
 
@@ -86,4 +86,21 @@
 .txnValue {
   font-size: 1.4rem;
   color: #ccc;
+}
+
+.waveMessagesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.waveMessage {
+  padding: 1.6rem;
+  font-size: 1.4rem;
+  background-color: #2a3042;
+  border-radius: 5px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
 }

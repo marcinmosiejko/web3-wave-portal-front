@@ -4,13 +4,15 @@ import {
   findMetaMaskAccount,
   connectWallet,
   wave,
-  readWaveCount,
+  getWaveCount,
+  getAllWaves,
 } from 'helpers/main';
 import { SpinnerCircular } from 'spinners-react';
 
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState('');
   const [waveCount, setWaveCount] = useState(null);
+  const [allWaves, setAllWaves] = useState(null);
   const [txn, setTxn] = useState('');
   const [isMining, setIsMining] = useState(false);
 
@@ -30,13 +32,18 @@ const App = () => {
     setIsMining(isMining);
   };
 
+  const handleSetAllWaves = (allWaves) => {
+    setAllWaves(allWaves);
+  };
+
   useEffect(() => {
     (async () => {
       const account = await findMetaMaskAccount();
       if (account !== null) {
         setCurrentAccount(account);
       }
-      readWaveCount(handleSetWaveCount);
+      getWaveCount(handleSetWaveCount);
+      getAllWaves(handleSetAllWaves);
     })();
   }, []);
 
@@ -58,7 +65,7 @@ const App = () => {
           </p>
         </div>
 
-        <div className="totalWavesContainer">
+        <div className="waveCountContainer">
           {waveCount !== null ? (
             <>
               <span className="description">Total waves:</span>
@@ -75,7 +82,12 @@ const App = () => {
           <button
             className={['button', 'waveButton'].join(' ')}
             onClick={() =>
-              wave(handleSetWaveCount, handleSetTxn, handleSetIsMining)
+              wave({
+                handleSetWaveCount,
+                handleSetAllWaves,
+                handleSetTxn,
+                handleSetIsMining,
+              })
             }
           >
             Wave at Me
@@ -96,6 +108,18 @@ const App = () => {
               <span className="txnValue"> {txn}</span>
             </>
           ) : null}
+        </div>
+
+        <div className="waveMessagesContainer">
+          {allWaves?.map((wave, index) => {
+            return (
+              <div className="waveMessage" key={index + wave.address}>
+                <div>Address: {wave.address}</div>
+                <div>Time: {wave.timestamp.toString()}</div>
+                <div>Message: {wave.message}</div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

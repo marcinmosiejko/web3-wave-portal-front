@@ -6,6 +6,20 @@ const contractABI = abi.abi;
 
 const getEthereumObject = () => window.ethereum;
 
+const getCleanWaves = (waves) => {
+  // We only need address, timestamp, and message in our UI
+  const wavesCleaned = [];
+  waves.forEach((wave) => {
+    wavesCleaned.push({
+      address: wave.waver,
+      timestamp: new Date(wave.timestamp * 1000),
+      message: wave.message,
+    });
+  });
+
+  return wavesCleaned;
+};
+
 // This function returns the first linked account found.
 // If there is no account linked, it will return null.
 export const findMetaMaskAccount = async () => {
@@ -55,7 +69,7 @@ export const connectWallet = async (handleSetCurrentAccount) => {
   }
 };
 
-export const readWaveCount = async (handleSetWaveCount) => {
+export const getWaveCount = async (handleSetWaveCount) => {
   try {
     const { ethereum } = window;
 
@@ -74,11 +88,33 @@ export const readWaveCount = async (handleSetWaveCount) => {
   } catch (err) {}
 };
 
-export const wave = async (
+export const getAllWaves = async (handleSetAllWaves) => {
+  try {
+    const { ethereum } = window;
+    if (ethereum) {
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const wavePortalContract = new ethers.Contract(
+        contractAddress,
+        contractABI,
+        provider
+      );
+
+      const waves = await wavePortalContract.getAllWaves();
+      handleSetAllWaves(getCleanWaves(waves));
+    } else {
+      console.log("Ethereum object doesn't exist!");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const wave = async ({
   handleSetWaveCount,
   handleSetTxn,
-  handleSetIsMining
-) => {
+  handleSetIsMining,
+  handleSetAllWaves,
+}) => {
   try {
     const { ethereum } = window;
 
@@ -92,7 +128,7 @@ export const wave = async (
       );
 
       // Execute the actual wave from smart contract and get transaction hash
-      const waveTxn = await wavePortalContract.wave();
+      const waveTxn = await wavePortalContract.wave('this is a message');
       handleSetTxn(waveTxn.hash);
       handleSetIsMining(true);
 
@@ -100,9 +136,11 @@ export const wave = async (
       await waveTxn.wait();
       handleSetIsMining(false);
 
-      // Read from contract again to update displayed waveCount
+      // Read from contract again to update displayed data
       const count = await wavePortalContract.getTotalWaves();
+      const allWaves = await wavePortalContract.getAllWaves();
       handleSetWaveCount(count.toNumber());
+      handleSetAllWaves(getCleanWaves(allWaves));
     } else {
       console.log("Ethereum object doesn't exist!");
     }
