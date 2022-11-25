@@ -1,13 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { ethers } from 'ethers';
 import './App.css';
-import { findMetaMaskAccount, connectWallet } from 'helpers/main';
+import {
+  findMetaMaskAccount,
+  connectWallet,
+  wave,
+  readWaveCount,
+} from 'helpers/main';
+import { SpinnerCircular } from 'spinners-react';
 
 const App = () => {
   const [currentAccount, setCurrentAccount] = useState('');
+  const [waveCount, setWaveCount] = useState('');
+  const [txn, setTxn] = useState('');
+  const [isMining, setIsMining] = useState(false);
 
   const handleSetCurrentAccount = (account) => {
     setCurrentAccount(account);
+  };
+
+  const handleSetWaveCount = (count) => {
+    setWaveCount(count);
+  };
+
+  const handleSetTxn = (txn) => {
+    setTxn(txn);
+  };
+
+  const handleSetIsMining = (isMining) => {
+    setIsMining(isMining);
   };
 
   useEffect(() => {
@@ -16,6 +36,7 @@ const App = () => {
       if (account !== null) {
         setCurrentAccount(account);
       }
+      readWaveCount(handleSetWaveCount);
     })();
   }, []);
 
@@ -32,8 +53,26 @@ const App = () => {
           <p> Connect your Ethereum wallet and wave at me!</p>
         </div>
 
+        <div className="totalWavesContainer">
+          {waveCount ? (
+            <>
+              <span className="description">Total waves:</span>
+              {isMining ? (
+                <SpinnerCircular color="#48dcb0" size={48} />
+              ) : (
+                <span className="wavesValue">{waveCount}</span>
+              )}
+            </>
+          ) : null}
+        </div>
+
         {currentAccount ? (
-          <button className={['button', 'waveButton'].join(' ')} onClick={null}>
+          <button
+            className={['button', 'waveButton'].join(' ')}
+            onClick={() =>
+              wave(handleSetWaveCount, handleSetTxn, handleSetIsMining)
+            }
+          >
             Wave at Me
           </button>
         ) : (
@@ -44,6 +83,15 @@ const App = () => {
             Connect Wallet
           </button>
         )}
+
+        <div className="txnContainer">
+          {txn ? (
+            <>
+              <span className="description">Your transaction hash:</span>
+              <span className="txnValue"> {txn}</span>
+            </>
+          ) : null}
+        </div>
       </div>
     </div>
   );

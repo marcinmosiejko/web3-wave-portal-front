@@ -1,3 +1,9 @@
+import { ethers } from 'ethers';
+import abi from 'utils/WavePortal.json';
+
+const contractAddress = '0xe8Fd7649A388151390Aee797FA56428925fF98da';
+const contractABI = abi.abi;
+
 const getEthereumObject = () => window.ethereum;
 
 // This function returns the first linked account found.
@@ -46,5 +52,61 @@ export const connectWallet = async (handleSetCurrentAccount) => {
     handleSetCurrentAccount(accounts[0]);
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const readWaveCount = async (handleSetWaveCount) => {
+  try {
+    const { ethereum } = window;
+
+    if (ethereum) {
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const wavePortalContract = new ethers.Contract(
+        contractAddress,
+        contractABI,
+        provider
+      );
+
+      // Read from contract
+      let count = await wavePortalContract.getTotalWaves();
+      handleSetWaveCount(count.toNumber());
+    }
+  } catch (err) {}
+};
+
+export const wave = async (
+  handleSetWaveCount,
+  handleSetTxn,
+  handleSetIsMining
+) => {
+  try {
+    const { ethereum } = window;
+
+    if (ethereum) {
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const signer = provider.getSigner();
+      const wavePortalContract = new ethers.Contract(
+        contractAddress,
+        contractABI,
+        signer
+      );
+
+      // Execute the actual wave from smart contract and get transaction hash
+      const waveTxn = await wavePortalContract.wave();
+      handleSetTxn(waveTxn.hash);
+      handleSetIsMining(true);
+
+      // Wait for the transaction to get mined
+      await waveTxn.wait();
+      handleSetIsMining(false);
+
+      // Read from contract again to update displayed waveCount
+      const count = await wavePortalContract.getTotalWaves();
+      handleSetWaveCount(count.toNumber());
+    } else {
+      console.log("Ethereum object doesn't exist!");
+    }
+  } catch (error) {
+    console.log(error);
   }
 };
