@@ -43,7 +43,9 @@ const App = () => {
   return (
     <div className="mainContainer">
       <div className="dataContainer">
-        <div className="header">GM 👋</div>
+        <div className="header">
+          GM <span>👋</span>
+        </div>
 
         <div className="bio">
           <p>
