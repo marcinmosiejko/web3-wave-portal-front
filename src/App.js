@@ -47,8 +47,8 @@ const App = () => {
 
         <div className="bio">
           <p>
-            My name's Marcin. I'm a video editor working towards becoming web3
-            developer ;)
+            My name's Marcin. I'm a junior developer that likes to tinker with
+            new technologies ;)
           </p>
           <p> Connect your Ethereum wallet and wave at me!</p>
         </div>
