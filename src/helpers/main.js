@@ -17,7 +17,7 @@ const getCleanWaves = (waves) => {
     });
   });
 
-  return wavesCleaned;
+  return wavesCleaned.reverse();
 };
 
 // This function returns the first linked account found.
@@ -114,6 +114,7 @@ export const wave = async ({
   handleSetTxn,
   handleSetIsMining,
   handleSetAllWaves,
+  message,
 }) => {
   try {
     const { ethereum } = window;
@@ -128,19 +129,20 @@ export const wave = async ({
       );
 
       // Execute the actual wave from smart contract and get transaction hash
-      const waveTxn = await wavePortalContract.wave('this is a message');
+      const waveTxn = await wavePortalContract.wave(message);
       handleSetTxn(waveTxn.hash);
       handleSetIsMining(true);
 
       // Wait for the transaction to get mined
       await waveTxn.wait();
-      handleSetIsMining(false);
 
       // Read from contract again to update displayed data
       const count = await wavePortalContract.getTotalWaves();
       const allWaves = await wavePortalContract.getAllWaves();
       handleSetWaveCount(count.toNumber());
       handleSetAllWaves(getCleanWaves(allWaves));
+
+      handleSetIsMining(false);
     } else {
       console.log("Ethereum object doesn't exist!");
     }

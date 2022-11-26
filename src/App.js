@@ -15,6 +15,7 @@ const App = () => {
   const [allWaves, setAllWaves] = useState(null);
   const [txn, setTxn] = useState('');
   const [isMining, setIsMining] = useState(false);
+  const [message, setMessage] = useState('');
 
   const handleSetCurrentAccount = (account) => {
     setCurrentAccount(account);
@@ -36,6 +37,17 @@ const App = () => {
     setAllWaves(allWaves);
   };
 
+  const onWave = () => {
+    wave({
+      handleSetWaveCount,
+      handleSetAllWaves,
+      handleSetTxn,
+      handleSetIsMining,
+      message,
+    });
+    setMessage('');
+  };
+
   useEffect(() => {
     (async () => {
       const account = await findMetaMaskAccount();
@@ -51,7 +63,10 @@ const App = () => {
     <div className="mainContainer">
       <div className="dataContainer">
         <div className="header">
-          GM <span>👋</span>
+          GM
+          <span role="img" aria-label="waving hand">
+            👋
+          </span>
         </div>
 
         <div className="bio">
@@ -70,7 +85,7 @@ const App = () => {
             <>
               <span className="description">Total waves:</span>
               {isMining ? (
-                <SpinnerCircular color="#48dcb0" size={48} />
+                <SpinnerCircular color="#48dcb0" size={72} />
               ) : (
                 <span className="wavesValue">{waveCount}</span>
               )}
@@ -78,45 +93,59 @@ const App = () => {
           ) : null}
         </div>
 
-        {currentAccount ? (
-          <button
-            className={['button', 'waveButton'].join(' ')}
-            onClick={() =>
-              wave({
-                handleSetWaveCount,
-                handleSetAllWaves,
-                handleSetTxn,
-                handleSetIsMining,
-              })
-            }
-          >
-            Wave at Me
-          </button>
-        ) : (
-          <button
-            className={['button', 'connectWalletButton'].join(' ')}
-            onClick={() => connectWallet(handleSetCurrentAccount)}
-          >
-            Connect Wallet
-          </button>
-        )}
-
-        <div className="txnContainer">
-          {txn ? (
+        <div className="waverContainer">
+          {currentAccount ? (
             <>
-              <span className="description">Your transaction hash:</span>
-              <span className="txnValue"> {txn}</span>
+              <input
+                className="inputMessage"
+                rows="5"
+                value={message}
+                onChange={(event) => setMessage(event.target.value)}
+                placeholder="Type your message here - up to 140 characters ;-)"
+                maxLength={140}
+              />
+              <button
+                className={['button', 'waveButton'].join(' ')}
+                onClick={onWave}
+              >
+                Wave at Me
+              </button>
             </>
-          ) : null}
+          ) : (
+            <button
+              className={['button', 'connectWalletButton'].join(' ')}
+              onClick={() => connectWallet(handleSetCurrentAccount)}
+            >
+              Connect Wallet
+            </button>
+          )}
+
+          <div className="txnContainer">
+            {txn ? (
+              <>
+                <span className="description">Your transaction hash:</span>
+                <span className="txnValue"> {txn}</span>
+              </>
+            ) : null}
+          </div>
         </div>
 
+        <div className="horizontalLine" />
+
         <div className="waveMessagesContainer">
+          <h2 className="waveMessagesTitle">Your Waves</h2>
           {allWaves?.map((wave, index) => {
             return (
               <div className="waveMessage" key={index + wave.address}>
-                <div>Address: {wave.address}</div>
-                <div>Time: {wave.timestamp.toString()}</div>
-                <div>Message: {wave.message}</div>
+                <div className="messageDetails">
+                  <span className="address">{wave.address}</span>
+                  <span className="time">
+                    {wave.timestamp.toString().slice(0, 34)}
+                  </span>
+                </div>
+                <div className="message">
+                  <p>{wave.message}</p>
+                </div>
               </div>
             );
           })}
