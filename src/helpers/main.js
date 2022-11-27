@@ -129,7 +129,10 @@ export const wave = async ({
       );
 
       // Execute the actual wave from smart contract and get transaction hash
-      const waveTxn = await wavePortalContract.wave(message);
+      // Add gas limit, as Metamask will try to estimate how much gas a transaction will use, but sometimes it's wrong. Estimating gas is a hard problem and an easy workaround for this (so users don't get angry when a transaction fails) is to set a limit
+      const waveTxn = await wavePortalContract.wave(message, {
+        gasLimit: 300000,
+      });
       handleSetTxn(waveTxn.hash);
       handleSetIsMining(true);
 
