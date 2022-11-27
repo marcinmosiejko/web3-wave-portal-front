@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 import abi from 'utils/WavePortal.json';
 
-const contractAddress = '0x276F7D8eCB74C1eAfBf499C7123a571e10da0F07';
+const contractAddress = '0x75f8F563CaE3cDB292f0AA8A3f5ba91f221F4b62';
 const contractABI = abi.abi;
 
 const getEthereumObject = () => window.ethereum;
@@ -119,6 +119,7 @@ export const wave = async ({ handleSetTxn, handleSetIsMining, message }) => {
     }
   } catch (error) {
     console.log(error);
+    handleSetIsMining(false);
   }
 };
 
