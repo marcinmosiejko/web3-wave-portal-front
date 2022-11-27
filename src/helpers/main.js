@@ -69,25 +69,6 @@ export const connectWallet = async (handleSetCurrentAccount) => {
   }
 };
 
-export const getWaveCount = async (handleSetWaveCount) => {
-  try {
-    const { ethereum } = window;
-
-    if (ethereum) {
-      const provider = new ethers.providers.Web3Provider(ethereum);
-      const wavePortalContract = new ethers.Contract(
-        contractAddress,
-        contractABI,
-        provider
-      );
-
-      // Read from contract
-      const count = await wavePortalContract.getTotalWaves();
-      handleSetWaveCount(count.toNumber());
-    }
-  } catch (err) {}
-};
-
 export const getAllWaves = async (handleSetAllWaves) => {
   try {
     const { ethereum } = window;
@@ -109,12 +90,7 @@ export const getAllWaves = async (handleSetAllWaves) => {
   }
 };
 
-export const wave = async ({
-  handleSetWaveCount,
-  handleSetTxn,
-  handleSetIsMining,
-  message,
-}) => {
+export const wave = async ({ handleSetTxn, handleSetIsMining, message }) => {
   try {
     const { ethereum } = window;
 
@@ -133,15 +109,10 @@ export const wave = async ({
         gasLimit: 300000,
       });
       handleSetTxn(waveTxn.hash);
-      handleSetIsMining(true);
 
       // Wait for the transaction to get mined
+      handleSetIsMining(true);
       await waveTxn.wait();
-
-      // Read from contract again to update allWaves
-      const count = await wavePortalContract.getTotalWaves();
-      handleSetWaveCount(count.toNumber());
-
       handleSetIsMining(false);
     } else {
       console.log("Ethereum object doesn't exist!");

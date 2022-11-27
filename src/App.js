@@ -4,7 +4,7 @@ import {
   findMetaMaskAccount,
   connectWallet,
   wave,
-  getWaveCount,
+  // getWaveCount,
   getAllWaves,
   listenForEvents,
 } from 'helpers/main';
@@ -20,10 +20,6 @@ const App = () => {
 
   const handleSetCurrentAccount = (account) => {
     setCurrentAccount(account);
-  };
-
-  const handleSetWaveCount = (count) => {
-    setWaveCount(count);
   };
 
   const handleSetTxn = (txn) => {
@@ -44,7 +40,6 @@ const App = () => {
 
   const onWave = () => {
     wave({
-      handleSetWaveCount,
       handleSetTxn,
       handleSetIsMining,
       message,
@@ -60,7 +55,7 @@ const App = () => {
       }
     })();
 
-    getWaveCount(handleSetWaveCount);
+    // getWaveCount(handleSetWaveCount);
     getAllWaves(handleSetAllWaves);
 
     const { wavePortalContract, onNewWave } =
@@ -72,6 +67,10 @@ const App = () => {
       }
     };
   }, []);
+
+  useEffect(() => {
+    setWaveCount(allWaves?.length || 0);
+  }, [allWaves]);
 
   return (
     <div className="mainContainer">
