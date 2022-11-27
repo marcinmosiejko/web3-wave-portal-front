@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.db9fab94.chunk.css",
-    "main.js": "/static/js/main.28a33cae.chunk.js",
-    "main.js.map": "/static/js/main.28a33cae.chunk.js.map",
+    "main.js": "/static/js/main.7fc8715a.chunk.js",
+    "main.js.map": "/static/js/main.7fc8715a.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.f294effb.js",
     "runtime-main.js.map": "/static/js/runtime-main.f294effb.js.map",
     "static/js/2.78621209.chunk.js": "/static/js/2.78621209.chunk.js",
     "static/js/2.78621209.chunk.js.map": "/static/js/2.78621209.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.29113a0c0161abf128eea7d6f89e4395.js": "/precache-manifest.29113a0c0161abf128eea7d6f89e4395.js",
+    "precache-manifest.0ec429396310fa4cc8c1db6ced2af0c6.js": "/precache-manifest.0ec429396310fa4cc8c1db6ced2af0c6.js",
     "service-worker.js": "/service-worker.js",
     "static/css/main.db9fab94.chunk.css.map": "/static/css/main.db9fab94.chunk.css.map",
     "static/media/metamask_fox.webp": "/static/media/metamask_fox.137cf3bf.webp"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.f294effb.js",
     "static/js/2.78621209.chunk.js",
     "static/css/main.db9fab94.chunk.css",
-    "static/js/main.28a33cae.chunk.js"
+    "static/js/main.7fc8715a.chunk.js"
   ]
 }

@@ -100,10 +100,7 @@ const App = () => {
       <div className="mainContainer">
         <div className="dataContainer">
           <div className="header">
-            GM
-            <span role="img" aria-label="waving hand">
-              👋
-            </span>
+            <h1>GM!</h1>
           </div>
 
           <div className="bio">
@@ -126,7 +123,16 @@ const App = () => {
                     {isMining ? (
                       <SpinnerCircular color="#48dcb0" size={72} />
                     ) : (
-                      <span className="wavesValue">{waveCount}</span>
+                      <div className="wavesValueContainer">
+                        <span className="wavesValue">{waveCount}</span>
+                        <span
+                          className="handWaveEmoji"
+                          role="img"
+                          aria-label="waving hand"
+                        >
+                          👋
+                        </span>
+                      </div>
                     )}
                   </>
                 ) : null}

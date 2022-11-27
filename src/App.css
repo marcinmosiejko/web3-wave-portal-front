@@ -18,7 +18,21 @@
   text-align: center;
   font-size: 4rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.header h1 {
+  margin: 1rem 0;
+  font-size: 6.4rem;
+  text-transform: uppercase;
+  background: linear-gradient(to right, #1c936f 0%, #48dcb0 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .bio {
@@ -38,29 +52,38 @@
 }
 
 .waveButton {
-  background-color: #48dcb0;
+  background-image: linear-gradient(
+    to right,
+    #1c936f 0%,
+    #48dcb0 51%,
+    #1c936f 100%
+  );
+  background-size: 200% auto;
 
   transition: all 0.3s;
 }
 
 .waveButton:hover {
-  background-color: #1fa27b;
+  background-position: right center; /* change the direction of the change here */
+  text-decoration: none;
 }
 
 .connectWalletButton {
-  background-color: #aaa;
+  background-image: linear-gradient(to right, #aaa 0%, #ddd 51%, #aaa 100%);
+  background-size: 200% auto;
 
   transition: all 0.3s;
 }
 
 .connectWalletButton:hover {
-  background-color: #ddd;
+  background-position: right center; /* change the direction of the change here */
+  text-decoration: none;
 }
 
 .waveCountContainer {
   height: 10rem;
   text-align: center;
-  margin: 4rem 0 7rem;
+  margin: 5rem 0 7rem;
 
   display: flex;
   flex-direction: column;
@@ -71,12 +94,26 @@
 .description {
   font-size: 1.3rem;
   color: #aaa;
+
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.wavesValueContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .wavesValue {
   font-size: 8rem;
   font-weight: 600;
   color: #fff;
+}
+
+.handWaveEmoji {
+  font-size: 5.4rem;
 }
 
 .waverContainer {
@@ -119,9 +156,10 @@
 .inputMessage {
   padding: 2.4rem 1.2rem;
   border-radius: 5px;
-  border: none;
   color: #fff;
   background-color: #2a3042;
+  border: 1px solid rgba(205, 223, 217, 0.1);
+  box-shadow: 1px 1px 6px 2px rgba(60, 69, 66, 0.4);
 }
 
 .inputMessage::placeholder {
