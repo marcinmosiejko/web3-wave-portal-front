@@ -27,6 +27,10 @@ const App = () => {
     setTxn(txn);
   };
 
+  const handleSetWaveCount = (waveCount) => {
+    if (waveCount >= allWaves.length) setWaveCount(waveCount);
+  };
+
   const handleSetIsMining = (isMining) => {
     setIsMining(isMining);
   };
@@ -49,6 +53,7 @@ const App = () => {
       handleSetIsMining,
       message,
       dispatchPopupMessage,
+      handleSetWaveCount,
     });
   };
 

@@ -96,6 +96,7 @@ export const wave = async ({
   handleSetIsMining,
   message,
   dispatchPopupMessage,
+  handleSetWaveCount,
 }) => {
   try {
     const { ethereum } = window;
@@ -119,7 +120,9 @@ export const wave = async ({
       // Wait for the transaction to get mined
       handleSetIsMining(true);
       await waveTxn.wait();
+      const waveCount = await wavePortalContract.getTotalWaves();
       dispatchPopupMessage(successWave);
+      handleSetWaveCount(waveCount.toNumber());
       handleSetIsMining(false);
     } else {
       console.log("Ethereum object doesn't exist!");
