@@ -52,6 +52,10 @@ const App = () => {
     setPopupMessage(popupMessage);
   };
 
+  const resetMessage = () => {
+    setMessage('');
+  };
+
   const onWave = () => {
     wave({
       handleSetTxn,
@@ -59,6 +63,7 @@ const App = () => {
       message,
       dispatchPopupMessage,
       handleSetWaveCount,
+      resetMessage,
     });
   };
 

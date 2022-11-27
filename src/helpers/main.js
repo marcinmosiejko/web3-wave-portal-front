@@ -2,7 +2,7 @@ import { ethers } from 'ethers';
 import abi from 'utils/WavePortal.json';
 import { defaultError, successWave } from './popupMessages';
 
-const contractAddress = '0x75f8F563CaE3cDB292f0AA8A3f5ba91f221F4b62';
+const contractAddress = '0xE96deAEE1C5fBEEbDc1b0d88679d3FF2B00e071a';
 const contractABI = abi.abi;
 
 const getEthereumObject = () => window.ethereum;
@@ -99,6 +99,7 @@ export const wave = async ({
   message,
   dispatchPopupMessage,
   handleSetWaveCount,
+  resetMessage,
 }) => {
   try {
     const { ethereum } = window;
@@ -125,6 +126,7 @@ export const wave = async ({
       const waveCount = await wavePortalContract.getTotalWaves();
       dispatchPopupMessage(successWave);
       handleSetWaveCount(waveCount.toNumber());
+      resetMessage();
       handleSetIsMining(false);
     } else {
       console.log("Ethereum object doesn't exist!");
