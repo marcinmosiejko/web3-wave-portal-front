@@ -6,6 +6,7 @@ import {
   wave,
   getWaveCount,
   getAllWaves,
+  listenForEvents,
 } from 'helpers/main';
 import { SpinnerCircular } from 'spinners-react';
 
@@ -37,10 +38,13 @@ const App = () => {
     setAllWaves(allWaves);
   };
 
+  const addNewWaveToAllWaves = (wave) => {
+    setAllWaves((prevState) => [wave, ...prevState]);
+  };
+
   const onWave = () => {
     wave({
       handleSetWaveCount,
-      handleSetAllWaves,
       handleSetTxn,
       handleSetIsMining,
       message,
@@ -54,9 +58,19 @@ const App = () => {
       if (account !== null) {
         setCurrentAccount(account);
       }
-      getWaveCount(handleSetWaveCount);
-      getAllWaves(handleSetAllWaves);
     })();
+
+    getWaveCount(handleSetWaveCount);
+    getAllWaves(handleSetAllWaves);
+
+    const { wavePortalContract, onNewWave } =
+      listenForEvents(addNewWaveToAllWaves);
+
+    return () => {
+      if (wavePortalContract) {
+        wavePortalContract.off('NewWave', onNewWave);
+      }
+    };
   }, []);
 
   return (

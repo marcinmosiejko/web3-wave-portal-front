@@ -11,7 +11,7 @@ const getCleanWaves = (waves) => {
   const wavesCleaned = [];
   waves.forEach((wave) => {
     wavesCleaned.push({
-      address: wave.waver,
+      address: wave.waver || wave.from,
       timestamp: new Date(wave.timestamp * 1000),
       message: wave.message,
     });
@@ -113,7 +113,6 @@ export const wave = async ({
   handleSetWaveCount,
   handleSetTxn,
   handleSetIsMining,
-  handleSetAllWaves,
   message,
 }) => {
   try {
@@ -139,11 +138,9 @@ export const wave = async ({
       // Wait for the transaction to get mined
       await waveTxn.wait();
 
-      // Read from contract again to update displayed data
+      // Read from contract again to update allWaves
       const count = await wavePortalContract.getTotalWaves();
-      const allWaves = await wavePortalContract.getAllWaves();
       handleSetWaveCount(count.toNumber());
-      handleSetAllWaves(getCleanWaves(allWaves));
 
       handleSetIsMining(false);
     } else {
@@ -152,4 +149,26 @@ export const wave = async ({
   } catch (error) {
     console.log(error);
   }
+};
+
+export const listenForEvents = (addNewWaveToAllWaves) => {
+  let wavePortalContract;
+
+  const onNewWave = (from, timestamp, message) => {
+    addNewWaveToAllWaves(getCleanWaves([{ from, timestamp, message }]).at(0));
+  };
+
+  if (window.ethereum) {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+
+    wavePortalContract = new ethers.Contract(
+      contractAddress,
+      contractABI,
+      signer
+    );
+    wavePortalContract.on('NewWave', onNewWave);
+  }
+
+  return { wavePortalContract, onNewWave };
 };
