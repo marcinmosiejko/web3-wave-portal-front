@@ -1,61 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './App.css';
-import {
-  findMetaMaskAccount,
-  connectWallet,
-  wave,
-  getAllWaves,
-  listenForEvents,
-} from 'helpers/main';
+import { connectWallet, wave } from 'helpers/main';
 import { SpinnerCircular } from 'spinners-react';
 import PopupMessage from 'components/PopupMessage/PopupMessage';
+import { useApp } from 'useApp';
 
 const App = () => {
-  const [currentAccount, setCurrentAccount] = useState('');
-  const [waveCount, setWaveCount] = useState(null);
-  const [allWaves, setAllWaves] = useState(null);
-  const [txn, setTxn] = useState('');
-  const [isMining, setIsMining] = useState(false);
-  const [message, setMessage] = useState('');
-  const [popupMessage, setPopupMessage] = useState(null);
-  const [hasMetamask, setHasMetamask] = useState(false);
-
-  const handleSetCurrentAccount = (account) => {
-    setCurrentAccount(account);
-  };
-
-  const handleSetTxn = (txn) => {
-    setTxn(txn);
-  };
-
-  const handleSetHasMetamask = (hasMetamask) => {
-    setHasMetamask(hasMetamask);
-  };
-
-  const handleSetWaveCount = (waveCount) => {
-    if (waveCount >= allWaves.length) setWaveCount(waveCount);
-  };
-
-  const handleSetIsMining = (isMining) => {
-    setIsMining(isMining);
-  };
-
-  const handleSetAllWaves = (allWaves) => {
-    setAllWaves(allWaves);
-  };
-
-  const addNewWaveToAllWaves = (wave) => {
-    setAllWaves((prevState) => [wave, ...prevState]);
-  };
-
-  const dispatchPopupMessage = (popupMessage) => {
-    setPopupMessage(popupMessage);
-  };
-
-  const resetMessage = () => {
-    setMessage('');
-  };
-
+  const {
+    currentAccount,
+    waveCount,
+    allWaves,
+    txn,
+    isMining,
+    message,
+    popupMessage,
+    hasMetamask,
+    handleSetCurrentAccount,
+    handleSetTxn,
+    handleSetWaveCount,
+    handleSetIsMining,
+    handleSetMessage,
+    dispatchPopupMessage,
+    resetMessage,
+  } = useApp();
   const onWave = () => {
     wave({
       handleSetTxn,
@@ -66,33 +33,6 @@ const App = () => {
       resetMessage,
     });
   };
-
-  useEffect(() => {
-    (async () => {
-      await findMetaMaskAccount(handleSetHasMetamask, handleSetCurrentAccount);
-    })();
-    getAllWaves(handleSetAllWaves);
-
-    const { wavePortalContract, onNewWave } =
-      listenForEvents(addNewWaveToAllWaves);
-
-    return () => {
-      if (wavePortalContract) {
-        wavePortalContract.off('NewWave', onNewWave);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    if (allWaves) setWaveCount(allWaves.length);
-  }, [allWaves]);
-
-  useEffect(() => {
-    if (popupMessage) {
-      // Reset popup message after 7s from dispatch so it can appear again
-      setTimeout(() => setPopupMessage(null), 7000);
-    }
-  }, [popupMessage]);
 
   return (
     <>
@@ -145,7 +85,7 @@ const App = () => {
                       className="inputMessage"
                       rows="5"
                       value={message}
-                      onChange={(event) => setMessage(event.target.value)}
+                      onChange={(event) => handleSetMessage(event.target.value)}
                       placeholder="Type your message here - up to 140 characters ;-)"
                       maxLength={140}
                     />

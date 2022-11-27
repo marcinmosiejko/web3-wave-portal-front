@@ -1,3 +1,7 @@
+/************************************/
+/* General */
+/**********************************/
+
 .mainContainer {
   width: 100%;
   padding: 6.4rem 2.4rem;
@@ -13,6 +17,33 @@
   flex-direction: column;
   justify-content: center;
 }
+
+.noMetamask {
+  text-align: center;
+  font-size: 3rem;
+
+  padding: 6.4rem 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.noMetamask img {
+  width: 6.4rem;
+}
+
+.horizontalLine {
+  width: 100%;
+  height: 0.2rem;
+  background-color: #2a3042;
+  margin: 4rem 0 3rem;
+}
+
+/************************************/
+/* Header */
+/**********************************/
 
 .header {
   text-align: center;
@@ -41,6 +72,73 @@
   font-size: 1.6rem;
   line-height: 1.3;
 }
+
+/************************************/
+/* waveCount */
+/**********************************/
+
+.waveCountContainer {
+  height: 10rem;
+  text-align: center;
+  margin: 6.4rem 0 7.2rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.description {
+  font-size: 1.3rem;
+  color: #aaa;
+
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.wavesValueContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.wavesValue {
+  font-size: 8rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.handWaveEmoji {
+  font-size: 5.4rem;
+}
+
+/************************************/
+/* Message input */
+/**********************************/
+
+.waverContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.inputMessage {
+  padding: 2.4rem 1.2rem;
+  border-radius: 5px;
+  color: #fff;
+  background-color: #2a3042;
+  border: 1px solid rgba(205, 223, 217, 0.1);
+  box-shadow: 1px 1px 6px 2px rgba(60, 69, 66, 0.4);
+}
+
+.inputMessage::placeholder {
+  color: #48dcb0;
+}
+
+/************************************/
+/* Buttons */
+/**********************************/
 
 .button {
   cursor: pointer;
@@ -80,47 +178,9 @@
   text-decoration: none;
 }
 
-.waveCountContainer {
-  height: 10rem;
-  text-align: center;
-  margin: 6.4rem 0 7.2rem;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.description {
-  font-size: 1.3rem;
-  color: #aaa;
-
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-.wavesValueContainer {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.wavesValue {
-  font-size: 8rem;
-  font-weight: 600;
-  color: #fff;
-}
-
-.handWaveEmoji {
-  font-size: 5.4rem;
-}
-
-.waverContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-}
+/************************************/
+/* Transaction Hash */
+/**********************************/
 
 .txnContainer {
   height: 5rem;
@@ -136,10 +196,25 @@
   color: #ccc;
 }
 
+/************************************/
+/* User Messages */
+/**********************************/
+
 .waveMessagesContainer {
   display: flex;
   flex-direction: column;
   gap: 3.2rem;
+}
+
+.waveMessagesTitle {
+  text-align: center;
+  font-size: 2.4rem;
+}
+
+.waveMessage {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
 }
 
 .waveMessage {
@@ -153,30 +228,6 @@
   gap: 0.6rem;
 }
 
-.inputMessage {
-  padding: 2.4rem 1.2rem;
-  border-radius: 5px;
-  color: #fff;
-  background-color: #2a3042;
-  border: 1px solid rgba(205, 223, 217, 0.1);
-  box-shadow: 1px 1px 6px 2px rgba(60, 69, 66, 0.4);
-}
-
-.inputMessage::placeholder {
-  color: #48dcb0;
-}
-
-.waveMessage {
-  display: flex;
-  flex-direction: column;
-  gap: 2.4rem;
-}
-
-.address {
-  font-size: 1.4rem;
-  color: #1fa27b;
-}
-
 .messageDetails {
   display: flex;
   justify-content: space-between;
@@ -184,8 +235,9 @@
   gap: 1rem;
 }
 
-.message {
-  font-size: 1.6rem;
+.address {
+  font-size: 1.4rem;
+  color: #1fa27b;
 }
 
 .time {
@@ -193,30 +245,6 @@
   color: #aaa;
 }
 
-.waveMessagesTitle {
-  text-align: center;
-  font-size: 2.4rem;
-}
-
-.horizontalLine {
-  width: 100%;
-  height: 0.2rem;
-  background-color: #2a3042;
-  margin: 4rem 0 3rem;
-}
-
-.noMetamask {
-  text-align: center;
-  font-size: 3rem;
-
-  padding: 6.4rem 0;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-}
-
-.noMetamask img {
-  width: 6.4rem;
+.message {
+  font-size: 1.6rem;
 }
