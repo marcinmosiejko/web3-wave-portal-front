@@ -23,7 +23,10 @@ const getCleanWaves = (waves) => {
 
 // This function returns the first linked account found.
 // If there is no account linked, it will return null.
-export const findMetaMaskAccount = async () => {
+export const findMetaMaskAccount = async (
+  handleSetHasMetamask,
+  handleSetCurrentAccount
+) => {
   try {
     const ethereum = getEthereumObject();
 
@@ -32,14 +35,13 @@ export const findMetaMaskAccount = async () => {
       console.error('Make sure you have Metamask!');
       return null;
     }
+    handleSetHasMetamask(true);
 
-    console.log('We have the Ethereum object', ethereum);
     const accounts = await ethereum.request({ method: 'eth_accounts' });
 
     if (accounts.length !== 0) {
       const account = accounts[0];
-      console.log('Found an authorized account:', account);
-      return account;
+      handleSetCurrentAccount(account);
     } else {
       console.error('No authorized account found');
       return null;

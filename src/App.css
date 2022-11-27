@@ -166,3 +166,19 @@
   background-color: #2a3042;
   margin: 4rem 0 3rem;
 }
+
+.noMetamask {
+  text-align: center;
+  font-size: 3rem;
+
+  padding: 6.4rem 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.noMetamask img {
+  width: 6.4rem;
+}
